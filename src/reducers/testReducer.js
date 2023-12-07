@@ -3,7 +3,14 @@ const initialValue={
 }
 
 const testReducer=(state=initialValue,action)=>{ //action and state are parameters 
-    return state
+    switch(action.type){
+        case 'ADD_ITEM':
+            return{
+                count:++state.count //added from current state
+            }
+        default:
+            return state
+    }
 }
 
 export default testReducer
