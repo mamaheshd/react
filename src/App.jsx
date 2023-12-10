@@ -14,7 +14,6 @@ function App() {
     <Provider store={store}>
       <Test/>
       <Student/>
-
     </Provider>
   );
 }
