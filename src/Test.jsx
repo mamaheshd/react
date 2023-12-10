@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 
 const Test = () => {
     const dispatch= useDispatch()
-    const data =useSelector(store=>store)
+    const data =useSelector(store=>store.test)
     const addItem=()=>(
         dispatch({type:'ADD_ITEMS'})
     )
