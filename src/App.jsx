@@ -1,5 +1,5 @@
 // this is jsx code 
-import logo from './logo.svg';
+import logo from './logo.svg';  
 import './App.css';
 import {  legacy_createStore } from 'redux';
 import { Provider } from 'react-redux'; // to pass data from 
