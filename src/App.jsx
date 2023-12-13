@@ -7,6 +7,7 @@ import { Provider } from 'react-redux'; // to pass data from
 import Test from './Test';
 import Student from './Student';
 import store from './store';
+import Products from './Products';
 
 function App() {
   // const store=legacy_createStore(testReducer)
@@ -14,6 +15,7 @@ function App() {
     <Provider store={store}>
       <Test/>
       <Student/>
+      <Products/>
     </Provider>
   );
 }
