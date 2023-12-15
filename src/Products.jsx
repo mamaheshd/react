@@ -1,30 +1,27 @@
 import React,{useEffect} from 'react'
-import { connect } from 'react-redux'
-import { fetchProductData } from './actions/productAction'
-
-const Products = ({products,error,fetchProductData}) => {
+import { useSelector,useDispatch } from 'react-redux'
+import { fetchProducts } from './actions/productAction'
+const Products = () => {
+    const dispatch=useDispatch()
+    const productsData= useSelector(store=>store.productsData)
+    const products=productsData.products
     useEffect(()=>{
-        fetchProductData()
-    },[fetchProductData])
-    if(error){
-        return <h2>Error:{error}</h2>
-    }
-  return (
+        try{
+            dispatch(fetchProducts())
+        }
+        catch(error){
+            console.log('Error in ferching data')
+        }
+    },[dispatch])
+    return (
     <>
-        {products && products.map((item,i)=>(
+        {products && products.map(item=>(
             <h2>{item.title} </h2>
-        )) }
+        ))}
     </>
   )
 }
 
-const mapStateToProps=(state)=>({
-    products:state.products,
-    error:state.error
-})
 
-const mapDispatchToProps={
-    fetchProductData
-}
 
-export default connect(mapStateToProps,mapDispatchToProps)(Products)
+export default Products

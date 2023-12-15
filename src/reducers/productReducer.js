@@ -4,12 +4,11 @@ const initialState={
     products:[],
     error:null
 }
-const productReducer=(state_initialState,action)=>{
+const productReducer=(state=initialState,action)=>{
     switch(action.type){
         case FETCH_PRODUCT_REQUEST:
             return{
-                ...state,
-                error:null
+                ...state
             }
         case FETCH_PRODUCT_SUCCESS:
             return{
