@@ -9,6 +9,7 @@ import Student from './Student';
 import store from './store';
 import Products from './Products';
 import SingleProduct from './SingleProduct';
+import Photo from './Photo';
 
 function App() {
   // const store=legacy_createStore(testReducer)
@@ -16,6 +17,7 @@ function App() {
     <Provider store={store}>
       <Test/>
       <Student/>
+      <Photo/>
       <Products/>
       <SingleProduct/>
     </Provider>
