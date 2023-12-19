@@ -1,5 +1,4 @@
 // this is jsx code 
-import logo from './logo.svg';  
 import './App.css';
 // import {  legacy_createStore } from 'redux';
 import { Provider } from 'react-redux'; // to pass data from 
@@ -9,15 +8,15 @@ import Student from './Student';
 import store from './store';
 import Products from './Products';
 import SingleProduct from './SingleProduct';
-import Photo from './Photo';
+import Photos from './Photos';
 
 function App() {
   // const store=legacy_createStore(testReducer)
   return (
     <Provider store={store}>
       <Test/>
+      <Photos/>
       <Student/>
-      <Photo/>
       <Products/>
       <SingleProduct/>
     </Provider>

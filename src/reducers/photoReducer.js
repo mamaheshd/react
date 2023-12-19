@@ -1,4 +1,4 @@
-import { FETCH_PRODUCT_REQUEST,FETCH_PRODUCT_SUCCESS,FETCH_PRODUCT_FAILURE } from "../constants/productConstant";
+import { FETCH_PHOTO_REQUEST,FETCH_PHOTO_SUCCESS,FETCH_PHOTO_FAILURE } from "../constants/photoConstant";
 
 const initialState={
     products:[],
@@ -6,16 +6,16 @@ const initialState={
 }
 const photoReducer=(state=initialState,action)=>{
     switch(action.type){
-        case FETCH_PRODUCT_REQUEST:
+        case FETCH_PHOTO_REQUEST:
             return{
                 ...state
             }
-        case FETCH_PRODUCT_SUCCESS:
+        case FETCH_PHOTO_SUCCESS:
             return{
                 ...state,
                 products:action.payload
             }
-        case FETCH_PRODUCT_FAILURE:
+        case FETCH_PHOTO_FAILURE:
             return{
                 ...state,
                 error:action.payload

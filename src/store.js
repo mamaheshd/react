@@ -11,7 +11,7 @@ const reducer=combineReducers({
     student:studentReducer,
     productsData:productReducer,
     product:singleProductReducer,
-    photo:photoReducer
+    photosData:photoReducer
 })
 
 const store=legacy_createStore(reducer,applyMiddleware(thunk)) //middlewere checks whether it is secure or not it allow or deallow to go forward

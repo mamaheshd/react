@@ -2,10 +2,10 @@ import React,{useEffect} from 'react'
 import { useSelector,useDispatch } from 'react-redux'
 import { fetchPhotos } from './actions/photoAction'
 
-const Photo = () => {
+const Photos = () => {
     const dispatch=useDispatch()
-    const productsData= useSelector(store=>store.productsData)
-    const photos=productsData.photo
+    const photosData= useSelector(store=>store.photosData)
+    const photos=photosData.photos
     useEffect(()=>{
         try{
             dispatch(fetchPhotos())
@@ -24,4 +24,4 @@ const Photo = () => {
   )
 }
 
-export default Photo
+export default Photos
