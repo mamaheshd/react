@@ -1,0 +1,46 @@
+#define the function
+def demofunction():
+    print('this is demo function')
+
+
+#call the function
+demofunction()
+
+#function with arguments
+def add(x,y):
+    sum=x+y
+    print(sum)
+
+x=int(input('enter the number'))
+y=int(input('enter the number'))
+add(x,y)
+
+
+#function with arguments
+def check(num):
+    if num %2==0:
+        return 'even no'
+    else:
+        return 'odd no'
+
+result=check(15)
+print(result)
+
+
+# sum of even numbers from the list
+
+def sumofevenno(arr):
+    sum=0
+    for a in arr:
+        if a %2 == 0:
+            sum+=a
+    return sum
+
+x=[10,11,12,13,14,15,16]
+result=sumofevenno(x)
+print(result)
+
+
+# mambership operator
+
+
