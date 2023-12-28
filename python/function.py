@@ -48,3 +48,16 @@ print('z' not in list1)
 print('b' not in list1)
 
 
+def checkvowel(arr):
+    count=0
+    vow=['a','e','i','o','u','A','E','I','O','U']
+    for a in arr:
+        if(a  in vow):
+            count+=1
+    return count
+
+
+
+q='what is your name'
+result=checkvowel(q)
+print(f'the no of vowels are {result}')
