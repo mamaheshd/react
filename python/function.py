@@ -42,5 +42,9 @@ print(result)
 
 
 # mambership operator
+list1=['a','b','c','d']
+print('a' in list1)
+print('z' not in list1)
+print('b' not in list1)
 
 
