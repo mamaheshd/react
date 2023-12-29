@@ -27,7 +27,7 @@ result=check(15)
 print(result)
 
 
-# sum of even numbers from the list
+# sum of even numbers from the  list
 
 def sumofevenno(arr):
     sum=0
@@ -41,7 +41,7 @@ result=sumofevenno(x)
 print(result)
 
 
-# mambership operator
+# mambership  operator
 list1=['a','b','c','d']
 print('a' in list1)
 print('z' not in list1)
@@ -59,5 +59,6 @@ def checkvowel(arr):
 
 
 q='what is your name'
-result=checkvowel(q)
+result=checkvowel(q) 
+
 print(f'the no of vowels are {result}')
