@@ -28,7 +28,6 @@ print(result)
 
 
 # sum of even numbers from the  list
-
 def sumofevenno(arr):
     sum=0
     for a in arr:
