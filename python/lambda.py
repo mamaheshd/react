@@ -5,3 +5,7 @@ square=lambda num:num**2
 result=square(5)
 print(result)
 
+#filter
+numbers=[2,3,4,5,6,12,8,10,11,9]
+result=list(filter(lambda num : num%2==0,numbers))
+print(result)
