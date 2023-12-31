@@ -8,3 +8,10 @@ print(result)
 print(min([1,2,4,5,-8]))
 
 print(max([1,2,4,5,-8]))
+
+
+#random
+from random import shuffle
+list=[1,2,3,4,5,6,7,9]
+shuffle(list)
+print(list)
