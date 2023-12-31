@@ -15,3 +15,7 @@ from random import shuffle
 list=[1,2,3,4,5,6,7,9]
 shuffle(list)
 print(list)
+
+from random import randint
+y=randint(1,10)
+print(y)
