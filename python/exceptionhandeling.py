@@ -23,3 +23,11 @@ except:
 
 finally:
     print('code execution completed')
+
+try:
+    print(20)
+except:
+    print('Error occured')
+    
+else:
+    print('no error')
