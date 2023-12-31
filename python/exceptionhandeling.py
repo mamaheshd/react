@@ -31,3 +31,8 @@ except:
     
 else:
     print('no error')
+
+#raise exception
+a=50
+if a>40:
+    raise Exception('no is greater then 40 is not allowed')
