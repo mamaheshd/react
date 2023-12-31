@@ -12,3 +12,19 @@ def fact(n):
 n=int(input('enter a no to calculate factorial'))
 f=fact(n)
 print(f)
+
+#enumerate: it is a useful function to use with for loop
+index_count=0
+for latter in 'hello':
+    print('At index {index_count} the latter is {latter}')
+    index_count+=1
+
+index_count=0
+for latter in 'hello':
+    print('At index {} the latter is {}'.format(index_count,latter))
+    index_count+=1
+
+# use enumerate in above example
+for i,latter in enumerate('Welcome'):
+    print('At index {} the latter is {}'.format(i,latter))
+
