@@ -61,3 +61,18 @@ q='what is your name'
 result=checkvowel(q) 
 
 print(f'the no of vowels are {result}')
+
+def sumofno(arr):
+    sume=0
+    sumo=0
+    for a in arr:
+        if a %2 == 0:
+            sume+=a
+        else:
+            sumo+=a
+    return sume,sumo
+
+x=[10,11,12,13,14,15,16]
+result=list(sumofno(x))
+print(f'sum of even no is {result[0]} \nsum of odd no is {result[1]}')
+
