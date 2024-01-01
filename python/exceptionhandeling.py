@@ -36,3 +36,7 @@ else:
 a=50
 if a>40:
     raise Exception('no is greater then 40 is not allowed')
+
+a='lol'
+if not type(a) is int:
+    raise TypeError('only integer is allowed')
