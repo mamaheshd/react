@@ -21,14 +21,20 @@ myfile.close()
 wfile=open('test.txt','w')
 print(wfile)
 wfile.write('This is python program')
-wfile.write('\nThis is new line in test files')
+wfile.write('\nThis is new line in test files in test ')
 wfile.close()
 
 #create a new file using w if the file is not exist
 newfile=open('abc.txt','w')
 print(newfile)
 newfile.write('This is python program')
-newfile.write('\nThis is new line in test files')
+newfile.write('\nThis is new line files')
 newfile.close()
+newfile=open('abc.txt','r')
+print(newfile.read())
 
+# append - a+ this will create the new file 
+#open('filename.ext','a+')
 
+import os 
+print(os.remove('hello.txt'))
