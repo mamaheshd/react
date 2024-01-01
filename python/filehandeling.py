@@ -17,6 +17,13 @@ print(myfile.readline())
 
 myfile.close()
 
+#to write to an existing file
+wfile=open('test.txt','w')
+print(wfile)
+wfile.write('This is python program')
+wfile.write('\nThis is new line in test files')
+wfile.close()
+
 
 
 
