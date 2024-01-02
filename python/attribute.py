@@ -21,8 +21,6 @@ print(obj_mahesh.batch)
 
 #another objects
 obj_lushan=Student(full_name='Lushan', age='24',address='btm')
-print(obj_lushan.name)
-print(obj_lushan.age)
-print(obj_lushan.address)
-print(obj_lushan.batch)
+print('The age of ',obj_lushan.name,'is ',obj_lushan.age,'from ',obj_lushan.address)
+
 
