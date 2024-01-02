@@ -32,11 +32,11 @@ except:
 else:
     print('no error')
 
-#raise exception
-a=50
-if a>40:
-    raise Exception('no is greater then 40 is not allowed')
+# #raise exception
+# a=50
+# if a>40:
+#     raise Exception('no is greater then 40 is not allowed')
 
-a='lol'
-if not type(a) is int:
-    raise TypeError('only integer is allowed')
+# a='lol'
+# if not type(a) is int:
+#     raise TypeError('only integer is allowed')
