@@ -22,10 +22,24 @@ class Account:
     def deposit(self,amt):
         self.balance+=amt
 
+    def withdraw(self,amount):
+        r= Account.checkbal(amount,self.balance)
+        if r==-1:
+            print('Insufficient balance') 
+        else:
+            self.balance-=amount  
+
     @classmethod 
     def displayMinBal(cls):
         print('Minimun balance',Account.minbal)
 
+    @staticmethod
+    def checkbal(amt,balance):
+        if amt>balance:
+            return -1
+        else:
+            return 1
+        
 
 a=Account(2001,'Mahesh',50000)
 b=Account(2002,'Dahal',75000)
@@ -33,4 +47,5 @@ a.displayMinBal()
 a.display()
 a.deposit(10000)
 a.display()
-
+a.withdraw(5000)
+a.display()
