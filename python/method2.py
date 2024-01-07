@@ -1,6 +1,6 @@
 # instance method  class method and static method 
 
-# class method : methods that are not bound to be an instance of class and class method can only access and modify class variable but not instance variable
+# class method : methods that are not bound to be an instance of class and class method can only access and modify class variable but not instance variable @classmethod  decorator
 
 # instance method:  can access variable as well as instance variable 
 
@@ -19,9 +19,18 @@ class Account:
         print('Account Holder Name : ',self.name)
         print('Available Balance : ',self.balance)
 
+    def deposit(self,amt):
+        self.balance+=amt
+
+    @classmethod 
+    def displayMinBal(cls):
+        print('Minimun balance',Account.minbal)
 
 
 a=Account(2001,'Mahesh',50000)
 b=Account(2002,'Dahal',75000)
-# a.displayMinBal()
+a.displayMinBal()
 a.display()
+a.deposit(10000)
+a.display()
+
