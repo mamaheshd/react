@@ -32,3 +32,13 @@ obj=pd.Series([2,3,3,4,5])
 frame2['Dept']=obj
 print(frame2)
 
+# covariance
+d=pd.DataFrame({
+    'A':[5,3,6,4],
+    'B':[11,2,4,3],
+    'C':[6,4,8,5],
+    'D':[3,4,3,5]
+})
+print(d)
+print(d.cov())
+print(d.corr()) #corelation
