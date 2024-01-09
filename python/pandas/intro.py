@@ -25,5 +25,10 @@ print(pd.notnull(d))
 data={'State':['Bagmati','Koshi','Gandaki','Lumbini','Karnali'], 'Year':[2000,2001,2005,2005,20001]}
 frame1=pd.DataFrame(data)
 print(frame1)
-
+frame2=pd.DataFrame(data,columns=['State','Year','Dept'])
+print(frame2)
+print(frame2['State'])
+obj=pd.Series([2,3,3,4,5])
+frame2['Dept']=obj
+print(frame2)
 
