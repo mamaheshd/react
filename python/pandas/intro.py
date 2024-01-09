@@ -42,3 +42,15 @@ d=pd.DataFrame({
 print(d)
 print(d.cov())
 print(d.corr()) #corelation
+
+# handling missing values
+#dropna,fillna,isnull,notnull
+import numpy as np
+s=pd.Series(['a','b',np.nan,'c',np.nan])
+print(s)
+print(s.isnull())
+s1=s.dropna()
+print(s1)
+s2=s.fillna(0)
+print(s2)
+
