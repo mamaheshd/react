@@ -1,0 +1,8 @@
+Django 
+ MVT Design 
+ M- model
+ V- view (all functions of the project define inside view)
+ T- Template (UI)
+
+ Database= Mysql
+ 
