@@ -6,3 +6,10 @@ Django
 
  Database= Mysql
  
+ comends 
+ python manage.py runserver
+ python manage.py makemigrations //run while change made in model is ready or ready state
+ python manage.py migrate  // connect to Database
+ python manage.py createsuperuser // to create super user
+
+ python manage.py runserver 5000 // to start app in 5000 port no

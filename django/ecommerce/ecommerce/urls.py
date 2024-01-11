@@ -16,7 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.http import HttpResponse # data comes from web to user
+
+def index(request):
+    return HttpResponse('This is the custom url')
+
+def display(request):
+    return HttpResponse('another function to check the url')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('test/', index),
+    path('display/',display),
 ]
