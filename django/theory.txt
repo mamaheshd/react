@@ -13,3 +13,6 @@ Django
  python manage.py createsuperuser // to create super user
 
  python manage.py runserver 5000 // to start app in 5000 port no
+
+ to create new app in the project
+ python manage.py startapp app-name
