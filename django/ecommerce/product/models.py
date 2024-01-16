@@ -1,5 +1,12 @@
 from django.db import models
 
+class Category(models.Model):
+    category_name=models.CharField(max_length=255)
+    created_at=models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.category_name
+
 class  Product(models.Model):
     product_name=models.CharField(max_length=255)
     product_price=models.FloatField()
@@ -8,3 +15,5 @@ class  Product(models.Model):
     product_image=models.CharField(max_length=255)
     created_at=models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.product_name
