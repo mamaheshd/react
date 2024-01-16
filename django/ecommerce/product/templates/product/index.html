@@ -1,0 +1,31 @@
+{% extends 'layouts.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Products</title>  
+{% endblock title %}
+
+{% block main_content %}
+    {% include 'product/header.html' %}
+    <h1>Products</h1>
+    <table border="2">
+        <tr>
+            <th>Product name</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Product Description</th>
+            <th>Image</th>
+        </tr>
+        {% for item in products %}
+            <tr>
+                <td> {{item.product_name}} </td>
+                <td> {{item.product_price}} </td>
+                <td> {{item.stock}} </td>
+                <td> {{item.product_description}} </td>
+                <td> <img src="{{item.product_image}}" alt="{{item.product_name}}" width="100"> </td>
+                <td> {{item.category.category_name}} </td>
+            </tr>
+        {% endfor %} 
+    </table>
+    <img src="{% static 'images/1.jpg' %}" alt="Image not found" width="500"> 
+{% endblock %}
