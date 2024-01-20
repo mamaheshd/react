@@ -26,7 +26,7 @@ def display(request):
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('test/', index),
-    path('display/',display),
+    # path('test/', index),
+    # path('display/',display),
     path('product/',include('product.urls'),)
 ]
