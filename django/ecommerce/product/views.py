@@ -10,13 +10,22 @@ from django.contrib import messages
 def index(request):
     # return HttpResponse('This is from the product app view')
     products=Product.objects.all() # get in all to get single values
-    category=Category.objects.all()
+   
     context={
         'products':products,
-        'category':category,
     }
 
     return render(request,'product/index.html',context)
+
+# to show category
+def show_category(request):
+    category=Category.objects.all()
+    context={
+        'category':category,
+    }
+
+    return render(request,'product/showcategory.html',context)
+
 
 def post_product(request):
     # to insert products
@@ -51,3 +60,17 @@ def post_category(request):
         'forms':CategoryForm
     }
     return render(request,'product/addcategory.html',context)
+
+# To delete category 
+def delete_category(request,category_id):
+    category=Category.objects.get(id=category_id)
+    category.delete()
+    messages.add_message(request,messages.SUCCESS,'category deleted')
+    return redirect('/product/showcategory')
+
+# To delete product 
+def delete_product(request,product_id):
+    product=Product.objects.get(id=product_id)
+    product.delete()
+    messages.add_message(request,messages.SUCCESS,'product deleted')
+    return redirect('/product')
