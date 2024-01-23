@@ -19,7 +19,7 @@
             <div class="alert alert-danger">{{ msg }}</div>
           {% endif %}
         {% endfor %}
-        <form action="" method="post" class="shadow">
+        <form action="" method="post" class="shadow" enctype="multipart/form-data">
           {% csrf_token %}
           {% comment %}csrf_token is used for securo=ity{% endcomment %}
           {{ forms | crispy }}

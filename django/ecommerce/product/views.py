@@ -30,7 +30,7 @@ def show_category(request):
 def post_product(request):
     # to insert products
     if request.method=='POST':
-        form=ProductForm(request.POST)
+        form=ProductForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
             messages.add_message(request,messages.SUCCESS,'poroduct added')
@@ -96,7 +96,7 @@ def update_category(request,category_id):
 def update_product(request,product_id):
     instance=Product.objects.get(id=product_id)
     if request.method=='POST':
-        form=ProductForm(request.POST,instance=instance)
+        form=ProductForm(request.POST,request.FILES,instance=instance)
         if form.is_valid():
             form.save()
             messages.add_message(request,messages.SUCCESS,'poroduct Updated')
