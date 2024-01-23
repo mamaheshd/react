@@ -74,3 +74,37 @@ def delete_product(request,product_id):
     product.delete()
     messages.add_message(request,messages.SUCCESS,'product deleted')
     return redirect('/product')
+
+# to edit category 
+def update_category(request,category_id):
+    instance=Category.objects.get(id=category_id)
+    if request.method=='POST':
+        form=CategoryForm(request.POST,instance=instance)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request,messages.SUCCESS,'Category updated')
+            return redirect('/product/showcategory')
+        else:
+            messages.add_message(request,messages.ERROR,'please validate')
+            return render(request,'/product/showcategory.html',{'forms':form})
+    context={
+        'forms':CategoryForm(instance=instance)
+    }
+    return render(request,'product/updatecategory.html',context)
+
+# to edit product 
+def update_product(request,product_id):
+    instance=Product.objects.get(id=product_id)
+    if request.method=='POST':
+        form=ProductForm(request.POST,instance=instance)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request,messages.SUCCESS,'poroduct Updated')
+            return redirect('/product')
+        else:
+            messages.add_message(request,messages.ERROR,'please validate')
+            return render(request,'/product/index.html',{'forms':form})
+    context={
+        'forms':ProductForm(instance=instance)
+    }
+    return render(request,'product/updateproduct.html',context)
