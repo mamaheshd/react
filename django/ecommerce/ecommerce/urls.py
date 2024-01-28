@@ -25,9 +25,10 @@ def display(request):
     return HttpResponse('another function to check the url')
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('adminss/', admin.site.urls),
     # path('test/', index),
     # path('display/',display),
     path('product/',include('product.urls')),
     path('',include('userapp.urls')),
+    path('admin/',include('adminpage.urls')),
 ]

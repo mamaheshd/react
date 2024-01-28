@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap4',
     'userapp',
+    'adminpage',
 ]
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap4'
 

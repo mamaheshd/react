@@ -53,7 +53,10 @@ def user_login(request):
             user=authenticate(request,username=data['username'],password=data['password'])
             if user is not None:
                 login(request,user)
-                return redirect('/')
+                if user.is_staff:
+                    return redirect('/admin/dashboard')
+                else:
+                    return redirect('/')
             else:
               messages.add_message(request,messages.ERROR,'Please provide correct Credentials')
               return render(request,'user/login.html',{'forms':form})  
@@ -61,3 +64,8 @@ def user_login(request):
         'forms':LoginForm
     }
     return render(request,'user/login.html',context)
+
+#logout 
+def logout_user(request):
+    logout(request)
+    return redirect('/login')
