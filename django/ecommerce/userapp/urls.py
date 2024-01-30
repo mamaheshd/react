@@ -8,4 +8,7 @@ urlpatterns = [
     path('register/',register_user),
     path('login/',user_login),
     path('logout/',logout_user),
+    path('addtocart/<int:product_id>',add_to_cart),
+    path('cart/',show_user_cart_items),
+    path('removecart/<int:cart_id>',remove_cart),
 ]

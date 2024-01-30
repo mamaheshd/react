@@ -1,10 +1,11 @@
 from django.shortcuts import render,redirect
-from product.models import Product
+from product.models import Product,Cart
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from .forms import LoginForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
@@ -69,3 +70,37 @@ def user_login(request):
 def logout_user(request):
     logout(request)
     return redirect('/login')
+
+@login_required
+def add_to_cart(request,product_id):
+    users=request.user
+    products=Product.objects.get(id=product_id)
+
+    check_item_presence=Cart.objects.filter(user=users,product=products) # user and product is from model Cart
+    if check_item_presence:
+        messages.add_message(request,messages.ERROR,'Product is already inn the cart')
+        return redirect('/cart')
+    else:
+        cart=Cart.objects.create(product=products,user=users)
+        if cart:
+            messages.add_message(request,messages.SUCCESS,'Product is add to cart')
+            return redirect('/cart')
+        else:
+            messages.add_message(request,messages.ERROR,'Failed to add product in cart')
+            return redirect('/cart')
+        
+@login_required
+def show_user_cart_items(request):
+    users=request.user
+    items=Cart.objects.filter(user=users)
+    context={
+        'items':items
+    }
+    return render(request,'user/cart.html',context)
+
+@login_required
+def remove_cart(request,cart_id):
+    cart=Cart.objects.get(id=cart_id)
+    cart.delete()
+    messages.add_message(request,messages.SUCCESS,'Item remove from the cart')
+    return redirect('/cart')
