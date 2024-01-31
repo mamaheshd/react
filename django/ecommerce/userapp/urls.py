@@ -11,4 +11,5 @@ urlpatterns = [
     path('addtocart/<int:product_id>',add_to_cart),
     path('cart/',show_user_cart_items),
     path('removecart/<int:cart_id>',remove_cart),
+    path('postorder/<int:product_id>/<int:cart_id>',post_order),
 ]

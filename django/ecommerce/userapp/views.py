@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from .forms import LoginForm
 from django.contrib.auth.decorators import login_required
+from product.forms import OrderForm
 
 # Create your views here.
 def index(request):
@@ -104,3 +105,13 @@ def remove_cart(request,cart_id):
     cart.delete()
     messages.add_message(request,messages.SUCCESS,'Item remove from the cart')
     return redirect('/cart')
+
+@login_required
+def post_order(request,product_id,cart_id):
+    user=request.user
+    product=Product.objects.get(id=product_id)
+    cart_item=Cart.objects.get(id=cart_id)
+    context={
+        'forms':OrderForm
+    }
+    return render(request,'user/orderform.html',context)
