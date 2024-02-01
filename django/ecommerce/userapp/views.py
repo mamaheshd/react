@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
-from product.models import Product,Cart
+# from product.models import Product,Cart,Order
+from product.models import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
@@ -7,6 +8,7 @@ from django.contrib import messages
 from .forms import LoginForm
 from django.contrib.auth.decorators import login_required
 from product.forms import OrderForm
+
 
 # Create your views here.
 def index(request):
@@ -106,11 +108,47 @@ def remove_cart(request,cart_id):
     messages.add_message(request,messages.SUCCESS,'Item remove from the cart')
     return redirect('/cart')
 
-@login_required
+@login_required #decorators
 def post_order(request,product_id,cart_id):
     user=request.user
     product=Product.objects.get(id=product_id)
     cart_item=Cart.objects.get(id=cart_id)
+    
+    if request.method == 'POST':
+        form =OrderForm(request.POST)
+        if form.is_valid():
+            quantity=request.POST.get('quantity')
+            price=product.product_price
+            total_price=int(quantity)*int(price)
+            contact_no=request.POST.get('contact_no')
+            address= request.POST.get('address')
+            payment_method=request.POST.get('payment_method')
+            payment_status=request.POST.get('payment_status')
+            # to create an order
+            order=Order.objects.create(
+                product=product,
+                user=user,
+                quantity=quantity,
+                total_price=total_price,
+                contact_no=contact_no,
+                address=address,
+                payment_method=payment_method,
+                payment_status=payment_status
+            )
+            if order.payment_method == 'Cash on Delivery':
+                cart_item.delete()
+                messages.add_message(request,messages.SUCCESS,'order sucessfull')
+                return redirect('/myorder')
+            elif order.payment_method == 'Esewa':
+                context ={
+                    'order':order,
+                    'cart':cart_item
+                }
+                return render(request,'user/esewa_payment.html',context)
+            else:
+                messages.add_message(request,messages.ERROR,'Failed to make order')
+                return render(request,'user/orderform.html',{'forms':form})
+
     context={
         'forms':OrderForm
     }
