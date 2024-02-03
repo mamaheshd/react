@@ -153,3 +153,44 @@ def post_order(request,product_id,cart_id):
         'forms':OrderForm
     }
     return render(request,'user/orderform.html',context)
+
+import requests as req
+def esewa_verify(request):
+    import xml.etree.ElementTree as ET
+
+    o_id=request.GET.get('pid')
+    amount=request.GET.get('amt')
+    refId=request.GET.get('refId')
+    url ="https://uat.esewa.com.np/epay/transrec"
+    d = {
+    'amt': amount,
+    'scd': 'EPAYTEST',
+    'rid': refId,
+    'pid':o_id,
+    }
+    resp = req.post(url, d)
+    root=ET.fromstring(resp.content)
+    status=root[0].text.strip()
+    if status == 'Success':
+        order_id=o_id.split("_")[0]
+        order=Order.objects.get(id=order_id)
+        order.payment_status=True
+        order.save()
+        #cart
+        cart_id=o_id.split("_")[1]
+        cart=Cart.objects.get(id=cart_id)
+        cart.delete()
+        messages.add_message(request,messages.SUCCESS,'Payment successful')
+        return redirect('/cart')
+    else:
+        messages.add_message(request,messages.ERROR,'Unable to make payment')
+        return redirect('/cart')
+
+@login_required
+def my_order(request):
+    user=request.user
+    items=Order.objects.filter(user=user)
+    context={
+        'items':items
+    }
+    return render(request,'user/myorder.html',context)
