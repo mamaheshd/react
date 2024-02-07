@@ -5,7 +5,8 @@ Django
  T- Template (UI)
 
  Database= Mysql
- 
+django-admin startproject project name 
+
  comends 
  python manage.py runserver
  python manage.py makemigrations //run while change made in model is ready or ready state

@@ -8,6 +8,8 @@ from django.contrib import messages
 from .forms import LoginForm
 from django.contrib.auth.decorators import login_required
 from product.forms import OrderForm
+from django.views import View #View is class whiich is used to call different methods 
+from django.urls import reverse
 
 
 # Create your views here.
@@ -144,7 +146,7 @@ def post_order(request,product_id,cart_id):
                     'order':order,
                     'cart':cart_item
                 }
-                return render(request,'user/esewa_payment.html',context)
+                return redirect(reverse("esewaform") + "?o_id=" + str(order.id)) 
             else:
                 messages.add_message(request,messages.ERROR,'Failed to make order')
                 return render(request,'user/orderform.html',{'forms':form})
@@ -194,3 +196,39 @@ def my_order(request):
         'items':items
     }
     return render(request,'user/myorder.html',context)
+
+import hmac
+import hashlib
+import uuid
+import base64
+
+# @login_required
+class EsewaView(View):
+    def get(self,request,*args, **kwargs):
+        o_id=request.GET.get('o_id')
+        order=Order.objects.get(id=o_id)
+        uuid_val=uuid.uuid4() #uuid isused to generate random string we need new transaction id in each teansaction so uuid is used
+        def genSha256(key, message):
+            key=key.encode('utf-8')
+            message=message.encode('utf-8')
+
+            hmac_sha256=hmac.new(key,message,hashlib.sha256)
+            digest=hmac_sha256.digest()
+            signature=base64.b64encode(digest).decode('utf-8')
+            return signature
+        secret_key="8gBm/:&EnhH.1/q"
+        data_to_sign=f"total_amount={order.total_price},transaction_uuid={uuid_val},product_code=EPAYTEST"
+        result=genSha256(secret_key, data_to_sign)
+
+        data={
+            'amount':order.product.product_price,
+            'total_amount':order.total_price,
+            'transaction_uuid':uuid_val,
+            'product_code':'EPAYTEST',
+            'signature':result
+        }
+        context={
+            'order':order,
+            'data':data
+        }
+        return render(request,'user/esewa.html',context)
