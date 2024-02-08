@@ -15,4 +15,5 @@ urlpatterns = [
     path('esewa_verify',esewa_verify),
     path('myorder/',my_order),
     path('esewa-form/',EsewaView.as_view(),name='esewaform'),
+    path('esewaverify/<int:order_id>/<int:cart_id>',esewaVerify),
 ]

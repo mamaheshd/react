@@ -142,11 +142,7 @@ def post_order(request,product_id,cart_id):
                 messages.add_message(request,messages.SUCCESS,'order sucessfull')
                 return redirect('/myorder')
             elif order.payment_method == 'Esewa':
-                context ={
-                    'order':order,
-                    'cart':cart_item
-                }
-                return redirect(reverse("esewaform") + "?o_id=" + str(order.id)) 
+                return redirect(reverse("esewaform") + "?o_id=" + str(order.id) + "&c_id=" + str(cart_item.id)) 
             else:
                 messages.add_message(request,messages.ERROR,'Failed to make order')
                 return render(request,'user/orderform.html',{'forms':form})
@@ -205,9 +201,14 @@ import base64
 # @login_required
 class EsewaView(View):
     def get(self,request,*args, **kwargs):
+
         o_id=request.GET.get('o_id')
+        c_id=request.GET.get('c_id')
+        cart=Cart.objects.get(id=c_id)
         order=Order.objects.get(id=o_id)
+
         uuid_val=uuid.uuid4() #uuid isused to generate random string we need new transaction id in each teansaction so uuid is used
+
         def genSha256(key, message):
             key=key.encode('utf-8')
             message=message.encode('utf-8')
@@ -229,6 +230,27 @@ class EsewaView(View):
         }
         context={
             'order':order,
-            'data':data
+            'data':data,
+            'cart':cart
         }
         return render(request,'user/esewa.html',context)
+    
+import json 
+@login_required
+def esewaVerify(request,order_id,cart_id):
+    if request.method == 'GET':
+        data=request.GET.get('data')
+        decoded_data=base64.b64decode(data).decode('utf-8')
+        map_data=json.load(decoded_data)
+        order=Order.objects.get(id=order_id)
+        cart=Cart.objects.get(id=cart_id)
+
+        if map_data.get('status')=='COMPLETE':
+            order.payment_status=True
+            order.save()
+            cart.delete()
+            messages.add_message(request,messages.SUCCESS,'payment successful')
+            return redirect('/myorder')
+        else:
+            messages.add_message(request,messages.ERROR,'Failed to make payment')
+            return redirect('/myorder')
