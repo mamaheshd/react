@@ -5,7 +5,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
-from .forms import LoginForm
+# from .forms import LoginForm,ProfileUpdateForm
+from .forms import *
 from django.contrib.auth.decorators import login_required
 from product.forms import OrderForm
 from django.views import View #View is class whiich is used to call different methods 
@@ -62,7 +63,7 @@ def user_login(request):
                 if user.is_staff:
                     return redirect('/admin/dashboard')
                 else:
-                    return redirect('/')
+                    return redirect('/profile')
             else:
               messages.add_message(request,messages.ERROR,'Please provide correct Credentials')
               return render(request,'user/login.html',{'forms':form})  
@@ -153,36 +154,36 @@ def post_order(request,product_id,cart_id):
     return render(request,'user/orderform.html',context)
 
 import requests as req
-def esewa_verify(request):
-    import xml.etree.ElementTree as ET
+# def esewa_verify(request):
+#     import xml.etree.ElementTree as ET
 
-    o_id=request.GET.get('pid')
-    amount=request.GET.get('amt')
-    refId=request.GET.get('refId')
-    url ="https://uat.esewa.com.np/epay/transrec"
-    d = {
-    'amt': amount,
-    'scd': 'EPAYTEST',
-    'rid': refId,
-    'pid':o_id,
-    }
-    resp = req.post(url, d)
-    root=ET.fromstring(resp.content)
-    status=root[0].text.strip()
-    if status == 'Success':
-        order_id=o_id.split("_")[0]
-        order=Order.objects.get(id=order_id)
-        order.payment_status=True
-        order.save()
-        #cart
-        cart_id=o_id.split("_")[1]
-        cart=Cart.objects.get(id=cart_id)
-        cart.delete()
-        messages.add_message(request,messages.SUCCESS,'Payment successful')
-        return redirect('/cart')
-    else:
-        messages.add_message(request,messages.ERROR,'Unable to make payment')
-        return redirect('/cart')
+#     o_id=request.GET.get('pid')
+#     amount=request.GET.get('amt')
+#     refId=request.GET.get('refId')
+#     url ="https://uat.esewa.com.np/epay/transrec"
+#     d = {
+#     'amt': amount,
+#     'scd': 'EPAYTEST',
+#     'rid': refId,
+#     'pid':o_id,
+#     }
+#     resp = req.post(url, d)
+#     root=ET.fromstring(resp.content)
+#     status=root[0].text.strip()
+#     if status == 'Success':
+#         order_id=o_id.split("_")[0]
+#         order=Order.objects.get(id=order_id)
+#         order.payment_status=True
+#         order.save()
+#         #cart
+#         cart_id=o_id.split("_")[1]
+#         cart=Cart.objects.get(id=cart_id)
+#         cart.delete()
+#         messages.add_message(request,messages.SUCCESS,'Payment successful')
+#         return redirect('/cart')
+#     else:
+#         messages.add_message(request,messages.ERROR,'Unable to make payment')
+#         return redirect('/cart')
 
 @login_required
 def my_order(request):
@@ -254,3 +255,28 @@ def esewaVerify(request,order_id,cart_id):
         else:
             messages.add_message(request,messages.ERROR,'Failed to make payment')
             return redirect('/myorder')
+
+@login_required
+def update_profile(request):
+    if request.method == 'POST':
+        form=ProfileUpdateForm(request.POST,instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request,messages.SUCCESS,'Profile updated')
+            return redirect('/profile')
+        else:
+            messages.add_message(request,messages.ERROR,'Failed to update profile')
+            return render(request,'user/updateprofile.html',{'forms':form})
+        
+    context={
+        'forms':ProfileUpdateForm(instance=request.user)
+    }
+    return render(request,'user/updateprofile.html',context)
+
+@login_required 
+def profile(request):
+    user=User.objects.get(username=request.user)
+    context={
+        'user':user
+    }
+    return render(request,'user/profile.html',context)
