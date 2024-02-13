@@ -62,9 +62,9 @@ def register(request):
             data=JSONParser().parse(request)
             user=User.objects.create_user(username=data['username'],password=data['password'])
             token=Token.objects.create(user=user)
-            return JsonResponse({'success':'account created','token':str(token)})
+            return JsonResponse({'success':'account created','token':str(token)},status=200)
         except IntegrityError:
-            return JsonResponse({'error':'username is already taken'})
+            return JsonResponse({'error':'username is already taken'},status=400)
 
 @csrf_exempt
 def login(request):

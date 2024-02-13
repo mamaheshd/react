@@ -1,12 +1,14 @@
 import './App.css';
-import Posts from './Posts';
+import MyRoute from './MyRoute';
 
-function App() {
+import React from 'react'
+
+const App = () => {
   return (
     <>
-      <Posts/>
+      <MyRoute/>
     </>
-  );
+  )
 }
 
-export default App;
+export default App
